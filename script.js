@@ -282,7 +282,7 @@ for (var key in opers){
 
         if (event.target.value != '=' && b == undefined){
                 
-                if (display.textContent == defaultText){
+                if (display.textContent == defaultText || display.textContent == '0'){
 
                 a = (display.textContent * 1);
 
