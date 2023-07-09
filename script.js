@@ -5,7 +5,7 @@ let result;
 let lastClicked;
 
 window.addEventListener('click',() => {
-    console.table(a,operator,b);
+    console.table(a,operator,b,result);
 })
 
 const opers = {
@@ -97,39 +97,42 @@ function getNumbers(event){
 
 if (operator == undefined){
 
-   if (display.textContent == '0' || display.textContent == defaultText || display.textContent == result){
+    if (display.textContent == '0' || display.textContent == defaultText){
+    
         if (event.target.value != '.'){
+
             display.textContent = event.target.value;
+
         } else {
-            display.textContent = display.textContent + '.';
+
+            display.textContent = '0' + event.target.value;
+
         }
 
 
-    } else if (!display.textContent.includes('.')){
-          
-        display.textContent = display.textContent + event.target.value;
-
-    } else if (display.textContent.includes('.')){
+    } else if ((display.textContent.includes('.'))){
 
         if (event.target.value != '.'){
 
             display.textContent = display.textContent + event.target.value;
-
-        } else {
-
-            display.textContent = display.textContent;
-        }
-    }
         
+        } 
+
+    } else if (!display.textContent.includes('.')){
+
+        display.textContent = display.textContent + event.target.value;
+
+    }
+
         a = (display.textContent * 1);
 
         return a;
 
-
+    
 } else if (operator != undefined && lastClicked != '='){
 
 
-        if (display.textContent == '0' || b == undefined || display.textContent == result){
+        if (display.textContent == '0' || lastClicked == operator){
 
             if (event.target.value != '.'){
 
@@ -137,39 +140,43 @@ if (operator == undefined){
 
             } else {
 
-                display.textContent = display.textContent + '.';
-            } 
-        } else if (!display.textContent.includes('.')){
-              
-            display.textContent = display.textContent + event.target.value;
-    
-        } else if (display.textContent.includes('.')){
-    
-            if (event.target.value != '.'){
-    
-                display.textContent = display.textContent + event.target.value;
-    
-            } else {
-    
-                display.textContent = display.textContent;
+                display.textContent = '0' + event.target.value;
+                        
             }
-        }
-            
-b = (display.textContent * 1);
-    
-return b;               
-  
 
+        } else if (display.textContent.includes('.') && event.target.value != '.') {
+
+            display.textContent = display.textContent + event.target.value;
+
+        } else if (!display.textContent.includes('.')){
+
+            display.textContent = display.textContent + event.target.value;
+
+        }
+
+        b = (display.textContent * 1);
+
+        return b;
+        
+        
 } else if (lastClicked == '='){
-    
+
+        a = undefined;
+        b = undefined;
+        operator = undefined;
+        result = undefined;
+
+    if (event.target.value != '.'){
 
     display.textContent = event.target.value;
 
-    a = undefined;
-    b = undefined;
-    operator = undefined;
-    result = undefined;
+    } else {
+
+    display.textContent = '0' + event.target.value;
+            
+    }
 }
+    
  
 
 }
@@ -236,6 +243,7 @@ const clearBtn = document.createElement('button');
         a = undefined;
         b = undefined;
         operator = undefined;
+        result = undefined;
 
     }  
     
@@ -272,55 +280,127 @@ for (var key in opers){
 
         const getOperator = (event) => {
 
-        if (event.target.value != '='){
+        if (event.target.value != '=' && b == undefined){
+                
+                if (display.textContent == defaultText){
 
-            if (b == undefined){
+                a = (display.textContent * 1);
 
                 operator = event.target.value;
 
                 return operator;
 
-            } else {
+                } else {
 
-            result = operate(a,b);
+                    if (display.textContent === '0.'){
 
-            a = result;
+                        display.textContent = '0.0';
 
-            display.textContent = result;
+                        a = (display.textContent * 1);
+
+                        operator = event.target.value;
+
+                        return operator;
+
+                    } else {
+
+                        operator = event.target.value;
+
+                        return operator;
+
+                    }
+                }
+
+        }  else if (event.target.value != '=' && b != undefined) {
+
+                    
+
+                    if (operator == '/' && b == 0){
+
+                    display.textContent = 'CAN\'T DIVIDE BY ZERO';
+
+                        a = undefined;
+                        b = undefined;
+                        operator = undefined;
+                        result = undefined;
+
+                    } else if (result == undefined){
             
-            operator = event.target.value;
+                    result = operate(a,b);
+
+                    display.textContent = Math.round((result + Number.EPSILON) * 100) / 100;
             
-            return operator;
+                    operator = event.target.value;
+            
+                    return operator;
 
-            }            
+                    } else if (result != undefined){
 
-        } else {
-            if (operator == '/' && b == 0){
-                display.textContent = 'CAN\'T DIVIDE BY ZERO';
-                a = undefined;
-                b = undefined;
-                c = undefined;
-            }
+                        a = (display.textContent * 1);
+                        b = undefined;
+
+                    }
+
+                
+            
+            } else if (event.target.value == '='){
+
             if (operator != undefined && result == undefined){
+
+                if (operator == '/' && b === 0){
+
+                    display.textContent = 'CAN\'T DIVIDE BY ZERO';
+
+                    a = undefined;
+                    b = undefined;
+                    operator = undefined;
+                    result = undefined;
+
+                } else if (operator != undefined && b == undefined){
+
+                        a = (display.textContent * 1);
+                        
+                        display.textContent = Math.round((a + Number.EPSILON) * 100) / 100;
+
+
+                } else if (a != undefined && b != undefined){ 
 
                     result = operate(a,b);
 
-                    display.textContent = result;
+                    display.textContent = Math.round((result + Number.EPSILON) * 100) / 100 ;
 
                     return result;
 
+                }
 
-            } else {
-                    a = result;
+
+            } else if (operator == undefined && b == undefined){
+
+                a = (display.textContent*1);
+                result = a;
+                display.textContent = Math.round((result + Number.EPSILON) * 100) / 100;
+
+
+            } else if (result != undefined){
+
+                if (lastClicked == operator){
+                    result = a;
+                    display.textContent = Math.round((result + Number.EPSILON) * 100) / 100;
+
+                } else if (lastClicked == '='){
+
+                    a = (display.textContent * 1);
                     
                     result = operate(a,b);
 
-                    display.textContent = result;
+                    display.textContent = Math.round((result + Number.EPSILON) * 100) / 100;
+
+                }
                 
 
-            }
+            } 
         }
-
+    
         }
 
 operatorKey.addEventListener('click',getOperator); 

@@ -29,6 +29,11 @@ button{
     margin: 5px;
 }
 
+button.operatorKey {
+    border-radius: 8px;
+    background-color: darkgray;
+}
+
 #operatorKeymult {
     height: 50px;
 }
@@ -40,4 +45,5 @@ button{
 
 #clearBtn{
     background-color: lightcoral;
+    border-radius: 8px;
 }
