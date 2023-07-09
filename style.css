@@ -1,0 +1,43 @@
+body{
+    background-color: darkgray;
+}
+
+button{
+    font-weight: 700;
+    font-size: 22px;
+    background-color: lightgray;
+}
+.operatorKey {
+    width: 100px;
+    height: 50px;
+    margin: 5px;
+
+}
+.numKey {
+    width: 100px;
+    margin: 5px;
+}
+
+#numKey0 {
+    width: 210px;
+    margin: 5px;
+}
+
+#decimalKey {
+    height: 50px;
+    width: 100px;
+    margin: 5px;
+}
+
+#operatorKeymult {
+    height: 50px;
+}
+
+#operatorKeyplus.operatorKey {
+    height: 110px;
+    background-color: lightseagreen;
+}
+
+#clearBtn{
+    background-color: lightcoral;
+}
