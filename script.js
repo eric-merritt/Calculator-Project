@@ -295,7 +295,12 @@ for (var key in opers){
             }            
 
         } else {
-
+            if (operator == '/' && b == 0){
+                display.textContent = 'CAN\'T DIVIDE BY ZERO';
+                a = undefined;
+                b = undefined;
+                c = undefined;
+            }
             if (operator != undefined && result == undefined){
 
                     result = operate(a,b);
