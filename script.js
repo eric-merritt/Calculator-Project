@@ -150,9 +150,39 @@ if (operator == undefined){
 
         } else if (!display.textContent.includes('.')){
 
+            if (lastClicked == '+' || lastClicked == '-' || lastClicked == '*' || lastClicked == '/'){
+
             display.textContent = display.textContent + event.target.value;
 
+            } else {
+
+                if (lastClicked == operator){
+
+                display.textContent = event.target.value;
+                
+                } else {
+
+                    display.textContent = display.textContent + event.target.value;
+
+                }
+
+            }
+
+        } else {
+
+            if (lastClicked == '+' || lastClicked == '-' || lastClicked == '/' || lastClicked == '*'){
+
+                display.textContent = event.target.value;
+
+            } else {
+
+                display.textContent = display.textContent + event.target.value;
+
+            }
+
         }
+
+
 
         b = (display.textContent * 1);
 
@@ -249,7 +279,18 @@ const clearBtn = document.createElement('button');
     
     clearBtn.addEventListener('click',clearDisplay);
 
-    
+
+function repeatLast(){
+
+    a = display.textContent;
+    result = operate(a,b);
+
+    return result;
+
+
+}    
+
+
     
 
 
@@ -280,128 +321,137 @@ for (var key in opers){
 
         const getOperator = (event) => {
 
-        if (event.target.value != '=' && b == undefined){
+        if (result == undefined && event.target.value == '='){
+
+            if (a != undefined && b == undefined){
                 
-                if (display.textContent == defaultText || display.textContent == '0'){
+                result = a;
+                display.textContent = result;
+
+            } else if (a != undefined & b != undefined){
+
+                result = operate(a,b);
+
+                display.textContent = result;
+
+            } 
+
+        } else if (result != undefined && event.target.value == '='){
+
+            a = result;
+
+            result = operate(a,b);
+
+            display.textContent = result;
+
+        } else if (result == undefined && event.target.value != '='){
+
+            if (a != undefined && b == undefined){
+
+                if (display.textContent == '0.'){
+
+                    display.textContent = '0.0';
+                    
+                    operator = event.target.value;
+
+                    return operator;
+
+                } else {
+
+                operator = event.target.value;
+
+                return operator;
+                
+                }
+                
+            } else if (a != undefined && b != undefined){
+
+                if (lastClicked != '+' && lastClicked != '-' && lastClicked != '*' && lastClicked != '/' && lastClicked != '='){
+
+                    result = operate(a,b);
+
+                    display.textContent = result;
+                
+                    operator = event.target.value;
+
+                    return operator;
+
+                }
+            } else if (a == undefined) {
 
                 a = (display.textContent * 1);
 
                 operator = event.target.value;
 
                 return operator;
+                
+            } 
+
+        } else if (result != undefined && event.target.value != '='){
+            
+            if (lastClicked != '-' && lastClicked != '+' && lastClicked != '/' && lastClicked != '*'){
+            
+                if (lastClicked == '='){
+
+                    display.textContent = display.textContent;
 
                 } else {
 
-                    if (display.textContent === '0.'){
+                a = result;
 
-                        display.textContent = '0.0';
+                result = operate(a,b);
 
-                        a = (display.textContent * 1);
+                display.textContent = result;
 
-                        operator = event.target.value;
+                operator = event.target.value;
 
-                        return operator;
+                return result;
 
-                    } else {
-
-                        operator = event.target.value;
-
-                        return operator;
-
-                    }
                 }
-
-        }  else if (event.target.value != '=' && b != undefined) {
-
-                    
-
-                    if (operator == '/' && b == 0){
-
-                    display.textContent = 'CAN\'T DIVIDE BY ZERO';
-
-                        a = undefined;
-                        b = undefined;
-                        operator = undefined;
-                        result = undefined;
-
-                    } else if (result == undefined){
             
-                    result = operate(a,b);
+            } else {
 
-                    display.textContent = Math.round((result + Number.EPSILON) * 100) / 100;
-            
-                    operator = event.target.value;
-            
-                    return operator;
+                display.textContent = display.textContent;
 
-                    } else if (result != undefined){
+                operator = event.target.value;
 
-                        a = (display.textContent * 1);
-                        b = undefined;
+                return operator;
 
-                    }
+            }
 
-                
+        } else if (display.textContent == '0' && event.target.value != '='){
+
+            if (a == undefined){
+
+                a = (display.textContent * 1);
+
+                return a;
+
+            } else if (a != undefined && b == undefined){
+
+                operator = event.target.value;
+
+                return operator;
+
+            }
+
+        } else if (display.textContent == '0.' && b == undefined){
+
+            if (event.target.value != '='){
+
+                display.textContent = '0.0';
             
             } else if (event.target.value == '='){
 
-            if (operator != undefined && result == undefined){
+                display.textContent = '0';
 
-                if (operator == '/' && b === 0){
+            }
+        
+        } 
 
-                    display.textContent = 'CAN\'T DIVIDE BY ZERO';
-
-                    a = undefined;
-                    b = undefined;
-                    operator = undefined;
-                    result = undefined;
-
-                } else if (operator != undefined && b == undefined){
-
-                        a = (display.textContent * 1);
-                        
-                        display.textContent = Math.round((a + Number.EPSILON) * 100) / 100;
-
-
-                } else if (a != undefined && b != undefined){ 
-
-                    result = operate(a,b);
-
-                    display.textContent = Math.round((result + Number.EPSILON) * 100) / 100 ;
-
-                    return result;
-
-                }
-
-
-            } else if (operator == undefined && b == undefined){
-
-                a = (display.textContent*1);
-                result = a;
-                display.textContent = Math.round((result + Number.EPSILON) * 100) / 100;
-
-
-            } else if (result != undefined){
-
-                if (lastClicked == operator){
-                    result = a;
-                    display.textContent = Math.round((result + Number.EPSILON) * 100) / 100;
-
-                } else if (lastClicked == '='){
-
-                    a = (display.textContent * 1);
-                    
-                    result = operate(a,b);
-
-                    display.textContent = Math.round((result + Number.EPSILON) * 100) / 100;
-
-                }
-                
-
-            } 
         }
-    
-        }
+
+        
 
 operatorKey.addEventListener('click',getOperator); 
 
@@ -409,8 +459,7 @@ operatorKey.addEventListener('click',getOperator);
         
 
 
-  
-    
+
 
 
 calculatorKeys.appendChild(numPad);
