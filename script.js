@@ -310,13 +310,13 @@ for (var key in opers){
             if (a != undefined && b == undefined){
                 
                 result = a;
-                display.textContent = result;
+                display.textContent = Math.round((result + Number.EPSILON) *100)/100;
 
             } else if (a != undefined & b != undefined){
 
                 result = operate(a,b);
 
-                display.textContent = result;
+                display.textContent = Math.round((result + Number.EPSILON) *100)/100;
 
             } 
 
@@ -326,7 +326,7 @@ for (var key in opers){
 
             result = operate(a,b);
 
-            display.textContent = result;
+            display.textContent = Math.round((result + Number.EPSILON) *100)/100;
 
         } else if (result == undefined && event.target.value != '='){
 
@@ -354,7 +354,7 @@ for (var key in opers){
 
                     result = operate(a,b);
 
-                    display.textContent = result;
+                    display.textContent = Math.round((result + Number.EPSILON) *100)/100;
                 
                     operator = event.target.value;
 
@@ -389,7 +389,7 @@ for (var key in opers){
 
                 result = operate(a,b);
 
-                display.textContent = result;
+                display.textContent = Math.round((result + Number.EPSILON) *100)/100;
 
                 operator = event.target.value;
 
