@@ -275,21 +275,7 @@ const clearBtn = document.createElement('button');
 
     }  
     
-    clearBtn.addEventListener('click',clearDisplay);
-
-
-function repeatLast(){
-
-    a = display.textContent;
-    result = operate(a,b);
-
-    return result;
-
-
-}    
-
-
-    
+    clearBtn.addEventListener('click',clearDisplay); 
 
 
 clearDiv.appendChild(clearBtn);
