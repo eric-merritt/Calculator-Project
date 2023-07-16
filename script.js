@@ -9,10 +9,10 @@ window.addEventListener('click',() => {
 })
 
 const opers = {
-    mult: { value: '*'},
-    plus: { value: '+'},
-    div: { value: '/'},
-    sub: { value: '-'},
+    mult: { value: '*',},
+    plus: { value: '+',},
+    div: { value: '/',},
+    sub: { value: '-',},
     equals: { value: '=',},   
 }
 
@@ -394,6 +394,10 @@ for (var key in opers){
                 if (lastClicked == '='){
 
                     display.textContent = display.textContent;
+
+                    operator = event.target.value;
+
+                    return operator;
 
                 } else {
 
