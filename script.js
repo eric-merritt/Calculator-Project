@@ -55,10 +55,8 @@ const calculator = document.getElementById('calculatorheader');
 
         let defaultText = '5318008';
 
+calcUpperRow.appendChild(display);
 
-
-        
-        calcUpperRow.appendChild(display);
     
     const calcLowerRow = document.createElement('div');
         calcLowerRow.style.display = 'flex';
