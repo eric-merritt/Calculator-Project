@@ -90,7 +90,6 @@ for (let i = 9; i > 0; i--){
     numKey.style.height = '50px';
 
 
-
 function getNumbers(event){
 
 if (operator == undefined){
@@ -238,6 +237,7 @@ const decimalKey = document.createElement('button');
     decimalKey.setAttribute('id','decimalKey');
     decimalKey.className = 'numKey';
     decimalKey.setAttribute('value','.');
+    decimalKey.setAttribute('key','.');
 
     decimalKey.addEventListener('click',getNumbers)
 
@@ -298,6 +298,7 @@ for (var key in opers){
       operatorKey.className = 'operatorKey';
         operatorKey.setAttribute('id',`operatorKey${key}`);
         operatorKey.setAttribute('value',`${opers[key].value}`);
+        operatorKey.setAttribute('key',`${opers[key].value}`);
         operatorKey.textContent = operatorKey.value;
         
         operatorPad.appendChild(operatorKey);
@@ -498,8 +499,28 @@ return lastClicked;
 
 
 
+let clickTarget;
 
 
+function keyValue(event){
+
+    if (event.key != 'Enter'){
+
+    clickTarget = document.querySelector(`button[value='${event.key}']`);
+
+    } else {
+
+    clickTarget = document.querySelector(`button[value='=']`);
+
+    }
+
+    clickTarget.click();
+
+    
+
+}
+
+window.addEventListener('keyup',keyValue);
 
 
 
