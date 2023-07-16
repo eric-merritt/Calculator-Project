@@ -16,6 +16,10 @@ const opers = {
     equals: { value: '=',},   
 }
 
+const numberPad = '0,1,2,3,4,5,6,7,8,9,.';
+
+const operPad = Object.values(opers);
+
 
 
 const calculator = document.getElementById('calculatorheader');
@@ -209,6 +213,7 @@ if (operator == undefined){
 }
 
 
+
 numKey.addEventListener('click',getNumbers); 
     
 
@@ -266,6 +271,7 @@ const clearBtn = document.createElement('button');
     clearBtn.style.height = '50px'
 
     const clearDisplay = () => {
+
         display.textContent = '0';
 
         a = undefined;
@@ -303,6 +309,7 @@ for (var key in opers){
         
         operatorPad.appendChild(operatorKey);
 
+        
 
         const getOperator = (event) => {
 
@@ -311,6 +318,7 @@ for (var key in opers){
             if (a != undefined && b == undefined){
                 
                 result = a;
+
                 display.textContent = Math.round((result + Number.EPSILON) *100)/100;
 
             } else if (a != undefined & b != undefined){
@@ -501,26 +509,29 @@ return lastClicked;
 
 let clickTarget;
 
+let equalsKey = document.querySelector(`button[value='=']`);
 
-function keyValue(event){
+window.addEventListener('keyup',keyboardEntry)
+
+function keyboardEntry(event){
+
 
     if (event.key != 'Enter'){
 
     clickTarget = document.querySelector(`button[value='${event.key}']`);
 
-    } else {
-
-    clickTarget = document.querySelector(`button[value='=']`);
-
-    }
-
-    clickTarget.click();
-
-    
+clickTarget.click();
 
 }
 
-window.addEventListener('keyup',keyValue);
+}
+
+
+
+
+
+
+
 
 
 
